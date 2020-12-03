@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<category cat="247" edition="1.2">
+    <title>Version Number Exchange</title>
+    <date>2008-02-01</date>
+    <preamble>
+        Surveillance data exchange.
+    </preamble>
+    <items>
+        <item name="010" title="Data Source Identifier">
+            <variation type="group">
+                <items>
+                    <item name="SAC" title="System Area Code">
+                        <variation type="element" size="8">
+                            <raw />
+                        </variation>
+                    </item>
+                    <item name="SIC" title="System Identification Code">
+                        <variation type="element" size="8">
+                            <raw />
+                        </variation>
+                    </item>
+                </items>
+            </variation>
+            <definition>
+                Identification of the radar station from which the data are received.
+            </definition>
+            <remark>
+                Note:
+                    The defined SACs are on the EUROCONTROL ASTERIX website
+                    (www.eurocontrol.int/asterix)
+            </remark>
+        </item>
+        <item name="015" title="Service Identification">
+            <variation type="element" size="8">
+                <raw />
+            </variation>
+            <definition>
+                Identification of the service provided to one or more users.
+            </definition>
+            <remark>
+                The service identification is allocated by the system.
+            </remark>
+        </item>
+        <item name="140" title="Time of Day">
+            <variation type="element" size="24">
+                <content type="quantity" signed="false" scaling="1" fractional_bits="7" unit="s">
+                </content>
+            </variation>
+            <definition>
+                Absolute time stamping expressed as UTC.
+            </definition>
+            <remark>
+                The time of day value is reset to zero each day at midnight.
+            </remark>
+        </item>
+        <item name="550" title="Category Version Number Report">
+            <variation type="repetitive" repetition_size="8">
+                <variation type="group">
+                    <items>
+                        <item name="CAT" title="Category">
+                            <variation type="element" size="8">
+                                <content type="integer" signed="false">
+                                </content>
+                            </variation>
+                        </item>
+                        <item name="MAIN" title="Main Version Number">
+                            <variation type="element" size="8">
+                                <content type="integer" signed="false">
+                                </content>
+                            </variation>
+                        </item>
+                        <item name="SUB" title="Sub Version Number">
+                            <variation type="element" size="8">
+                                <content type="integer" signed="false">
+                                </content>
+                            </variation>
+                        </item>
+                    </items>
+                </variation>
+            </variation>
+            <definition>
+                Version number of Categories used.
+            </definition>
+        </item>
+        <item name="RE" title="Reserved Expansion Field">
+            <variation type="explicit" />
+            <definition>
+                Expansion
+            </definition>
+        </item>
+        <item name="SP" title="Special Purpose Field">
+            <variation type="explicit" />
+            <definition>
+                Special Purpose Field
+            </definition>
+        </item>
+    </items>
+    <uap>
+        <item>010</item>
+        <item>015</item>
+        <item>140</item>
+        <item>550</item>
+        <item>-</item>
+        <item>SP</item>
+        <item>RE</item>
+    </uap>
+</category>

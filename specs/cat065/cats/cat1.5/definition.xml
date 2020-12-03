@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<category cat="65" edition="1.5">
+    <title>SDPS Service Status Reports</title>
+    <date>2020-06-18</date>
+    <preamble>
+        Surveillance data exchange.
+    </preamble>
+    <items>
+        <item name="000" title="Message Type">
+            <variation type="element" size="8">
+                <content type="table">
+                    <value val="1">SDPS Status</value>
+                    <value val="2">End of Batch</value>
+                    <value val="3">Service Status Report</value>
+                </content>
+            </variation>
+            <definition>
+                This Data Item allows for a more convenient handling of the
+                messages at the receiver side by further defining the type of
+                transaction.
+            </definition>
+            <remark>
+                Notes:
+                    - In application where transactions of various types are exchanged, the
+                      Message Type Data Item facilitates the proper message handling at the
+                      receiver side.
+            </remark>
+        </item>
+        <item name="010" title="Data Source Identifier">
+            <variation type="group">
+                <items>
+                    <item name="SAC" title="System Area Code">
+                        <variation type="element" size="8">
+                            <raw />
+                        </variation>
+                    </item>
+                    <item name="SIC" title="System Identification Code">
+                        <variation type="element" size="8">
+                            <raw />
+                        </variation>
+                    </item>
+                </items>
+            </variation>
+            <definition>
+                Identification of the system sending the data.
+            </definition>
+            <remark>
+                Note:
+                    - The up-to-date list of SACs is published on the
+                      EUROCONTROL Web Site (http://www.eurocontrol.int/asterix).
+            </remark>
+        </item>
+        <item name="015" title="Service Identification">
+            <variation type="element" size="8">
+                <raw />
+            </variation>
+            <definition>
+                Identification of the service provided to one or more users.
+            </definition>
+            <remark>
+                Note:
+                    - The service identification is allocated by the SDPS.
+            </remark>
+        </item>
+        <item name="020" title="Batch Number">
+            <variation type="element" size="8">
+                <content type="integer" signed="false">
+                </content>
+            </variation>
+            <definition>
+                A number indicating the completion of a service for that batch of track
+                data, from 0 to N-1, N being the number of batches used to make
+                one complete processing cycle.
+            </definition>
+        </item>
+        <item name="030" title="Time of Message">
+            <variation type="element" size="24">
+                <content type="quantity" signed="false" scaling="1" fractional_bits="7" unit="s">
+                </content>
+            </variation>
+            <definition>
+                Absolute time stamping of the message, in the form of elapsed time
+                since last midnight, expressed as UTC.
+            </definition>
+            <remark>
+                Note:
+                    - The time is reset to zero at every midnight.
+            </remark>
+        </item>
+        <item name="040" title="SDPS Configuration and Status">
+            <variation type="group">
+                <items>
+                    <item name="NOGO" title="">
+                        <variation type="element" size="2">
+                            <content type="table">
+                                <value val="0">Operational</value>
+                                <value val="1">Degraded</value>
+                                <value val="2">Not currently connected</value>
+                                <value val="3">Unknown</value>
+                            </content>
+                        </variation>
+                    </item>
+                    <item name="OVL" title="">
+                        <variation type="element" size="1">
+                            <content type="table">
+                                <value val="0">Default</value>
+                                <value val="1">Overload</value>
+                            </content>
+                        </variation>
+                    </item>
+                    <item name="TSV" title="">
+                        <variation type="element" size="1">
+                            <content type="table">
+                                <value val="0">Default</value>
+                                <value val="1">Invalid Time Source</value>
+                            </content>
+                        </variation>
+                    </item>
+                    <item name="PSS" title="Processing System Status">
+                        <variation type="element" size="2">
+                            <content type="table">
+                                <value val="0">Not applicable</value>
+                                <value val="1">SDPS-1 selected</value>
+                                <value val="2">SDPS-2 selected</value>
+                                <value val="3">SDPS-3 selected</value>
+                            </content>
+                        </variation>
+                    </item>
+                    <item name="STTN" title="Track Re-numbering Indication">
+                        <variation type="element" size="1">
+                            <raw />
+                        </variation>
+                        <remark>
+                            The STTN bit indicates when track numbering has been restarted. The STTN bit
+                            is a toggle bit that changes its value whenever the SDPS system starts re-numbering
+                            its tracks. Re-numbering of the track takes place either after SDPS start-up (cold or hot
+                            start-up) or when a configuration set has been changed (please note that the latter
+                            case is ARTAS specific behaviour and may be different in another SDPS).
+                        </remark>
+                    </item>
+                    <spare size="1" />
+                </items>
+            </variation>
+            <definition>
+                Status of an SDPS.
+            </definition>
+        </item>
+        <item name="050" title="Service Status Report">
+            <variation type="element" size="8">
+                <content type="table">
+                    <value val="1">Service degradation</value>
+                    <value val="2">Service degradation ended</value>
+                    <value val="3">Main radar out of service</value>
+                    <value val="4">Service interrupted by the operator</value>
+                    <value val="5">Service interrupted due to contingency</value>
+                    <value val="6">Ready for service restart after contingency</value>
+                    <value val="7">Service ended by the operator</value>
+                    <value val="8">Failure of user main radar</value>
+                    <value val="9">Service restarted by the operator</value>
+                    <value val="10">Main radar becoming operational</value>
+                    <value val="11">Main radar becoming degraded</value>
+                    <value val="12">Service continuity interrupted due to disconnection with adjacent unit</value>
+                    <value val="13">Service continuity restarted</value>
+                    <value val="14">Service synchronised on backup radar</value>
+                    <value val="15">Service synchronised on main radar</value>
+                    <value val="16">Main and backup radar, if any, failed</value>
+                </content>
+            </variation>
+            <definition>
+                Report sent by the SDPS related to a service
+            </definition>
+        </item>
+        <item name="RE" title="Reserved Expansion Field">
+            <variation type="explicit" />
+            <definition>
+                Expansion
+            </definition>
+        </item>
+        <item name="SP" title="Special Purpose Field">
+            <variation type="explicit" />
+            <definition>
+                Special Purpose Field
+            </definition>
+        </item>
+    </items>
+    <uap>
+        <item>010</item>
+        <item>000</item>
+        <item>015</item>
+        <item>030</item>
+        <item>020</item>
+        <item>040</item>
+        <item>050</item>
+        <item>-</item>
+        <item>-</item>
+        <item>-</item>
+        <item>-</item>
+        <item>-</item>
+        <item>RE</item>
+        <item>SP</item>
+    </uap>
+</category>

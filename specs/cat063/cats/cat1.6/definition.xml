@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<category cat="63" edition="1.6">
+    <title>Sensor Status Reports</title>
+    <date>2020-08-04</date>
+    <preamble>
+        Surveillance data exchange.
+    </preamble>
+    <items>
+        <item name="010" title="Data Source Identifier">
+            <variation type="group">
+                <items>
+                    <item name="SAC" title="System Area Code">
+                        <variation type="element" size="8">
+                            <raw />
+                        </variation>
+                    </item>
+                    <item name="SIC" title="System Identification Code">
+                        <variation type="element" size="8">
+                            <raw />
+                        </variation>
+                    </item>
+                </items>
+            </variation>
+            <definition>
+                Identification of the radar station from which the data are received.
+            </definition>
+            <remark>
+                Note:
+                    The defined SACs are on the EUROCONTROL ASTERIX website
+                    (www.eurocontrol.int/asterix)
+            </remark>
+        </item>
+        <item name="015" title="Service Identification">
+            <variation type="element" size="8">
+                <raw />
+            </variation>
+            <definition>
+                Identification of the service provided to one or more users.
+            </definition>
+            <remark>
+                The service identification is allocated by the SDPS
+            </remark>
+        </item>
+        <item name="030" title="Time of Message">
+            <variation type="element" size="24">
+                <content type="quantity" signed="false" scaling="1" fractional_bits="7" unit="s">
+                </content>
+            </variation>
+            <definition>
+                Absolute time stamping of the message, in the form of elapsed time
+                since last midnight, expressed as UTC.
+            </definition>
+            <remark>
+                The time of the day value is reset to zero at every midnight.
+            </remark>
+        </item>
+        <item name="050" title="Sensor Identifier">
+            <variation type="group">
+                <items>
+                    <item name="SAC" title="System Area Code">
+                        <variation type="element" size="8">
+                            <raw />
+                        </variation>
+                    </item>
+                    <item name="SIC" title="System Identification Code">
+                        <variation type="element" size="8">
+                            <raw />
+                        </variation>
+                    </item>
+                </items>
+            </variation>
+            <remark>
+                - The up-to-date list of SACs is published on the EUROCONTROL
+                  Web Site (http://www.eurocontrol.int/asterix).
+                - If the SAC/SIC refers to an SDPS used as input, the respective
+                  sensor status information will be transmitted using the Reserved
+                  Expansion Field.
+            </remark>
+        </item>
+        <item name="060" title="Sensor Configuration and Status">
+            <variation type="extended" primary_size="8" extension_size="8">
+                <items>
+                    <item name="CON" title="">
+                        <variation type="element" size="2">
+                            <content type="table">
+                                <value val="0">Operational</value>
+                                <value val="1">Degraded</value>
+                                <value val="2">Initialization</value>
+                                <value val="3">Not currently connected</value>
+                            </content>
+                        </variation>
+                    </item>
+                    <item name="PSR" title="">
+                        <variation type="element" size="1">
+                            <content type="table">
+                                <value val="0">PSR GO</value>
+                                <value val="1">PSR NOGO</value>
+                            </content>
+                        </variation>
+                    </item>
+                    <item name="SSR" title="">
+                        <variation type="element" size="1">
+                            <content type="table">
+                                <value val="0">SSR GO</value>
+                                <value val="1">SSR NOGO</value>
+                            </content>
+                        </variation>
+                    </item>
+                    <item name="MDS" title="">
+                        <variation type="element" size="1">
+                            <content type="table">
+                                <value val="0">MDS GO</value>
+                                <value val="1">MDS NOGO</value>
+                            </content>
+                        </variation>
+                    </item>
+                    <item name="ADS" title="">
+                        <variation type="element" size="1">
+                            <content type="table">
+                                <value val="0">ADS GO</value>
+                                <value val="1">ADS NOGO</value>
+                            </content>
+                        </variation>
+                    </item>
+                    <item name="MLT" title="">
+                        <variation type="element" size="1">
+                            <content type="table">
+                                <value val="0">MLT GO</value>
+                                <value val="1">MLT NOGO</value>
+                            </content>
+                        </variation>
+                    </item>
+                    <item name="OPS" title="Operational Release Status of the System">
+                        <variation type="element" size="1">
+                            <content type="table">
+                                <value val="0">System is released for operational use</value>
+                                <value val="1">Operational use of System is inhibited</value>
+                            </content>
+                        </variation>
+                    </item>
+                    <item name="ODP" title="Data Processor Overload Indicator">
+                        <variation type="element" size="1">
+                            <content type="table">
+                                <value val="0">Default, no overload</value>
+                                <value val="1">Overload in DP</value>
+                            </content>
+                        </variation>
+                    </item>
+                    <item name="OXT" title="Transmission Subsystem Overload Status">
+                        <variation type="element" size="1">
+                            <content type="table">
+                                <value val="0">Default, no overload</value>
+                                <value val="1">Overload in transmission subsystem</value>
+                            </content>
+                        </variation>
+                    </item>
+                    <item name="MSC" title="Monitoring System Connected Status">
+                        <variation type="element" size="1">
+                            <content type="table">
+                                <value val="0">Monitoring system connected</value>
+                                <value val="1">Monitoring system disconnected</value>
+                            </content>
+                        </variation>
+                    </item>
+                    <item name="TSV" title="Time Source Validity">
+                        <variation type="element" size="1">
+                            <content type="table">
+                                <value val="0">Valid</value>
+                                <value val="1">Invalid</value>
+                            </content>
+                        </variation>
+                    </item>
+                    <item name="NPW" title="No Plot Warning">
+                        <variation type="element" size="1">
+                            <content type="table">
+                                <value val="0">Default (no meaning)</value>
+                                <value val="1">No plots being received</value>
+                            </content>
+                        </variation>
+                    </item>
+                    <spare size="1" />
+                </items>
+            </variation>
+            <definition>
+                Configuration and status of the sensor
+            </definition>
+            <remark>
+                1. GO/NOGO information from PSR, SSR, Mode S, ADS and MLT is derived
+                   from monosensor categories and has a meaning only for operational
+                   sensors, whereas (CON) is derived by the SDPS.
+                2. The information (OPS), (ODP), (OXT), (MSC) and (TSV) are only related to
+                   CNS/ATM Ground Station and are derived from monosensor category
+                   (ASTERIX Cat 023).
+            </remark>
+        </item>
+        <item name="070" title="Time Stamping Bias">
+            <variation type="element" size="16">
+                <content type="quantity" signed="true" scaling="1" fractional_bits="0" unit="ms">
+                </content>
+            </variation>
+            <definition>
+                Plot Time stamping bias, in two’s complement form
+            </definition>
+        </item>
+        <item name="080" title="SSR / Mode S Range Gain and Bias">
+            <variation type="group">
+                <items>
+                    <item name="SRG" title="Mode S Range Gain">
+                        <variation type="element" size="16">
+                            <content type="quantity" signed="true" scaling="0.00001" fractional_bits="0" unit="">
+                            </content>
+                        </variation>
+                    </item>
+                    <item name="SRB" title="Mode S Range Bias">
+                        <variation type="element" size="16">
+                            <content type="quantity" signed="true" scaling="1" fractional_bits="7" unit="NM">
+                            </content>
+                        </variation>
+                    </item>
+                </items>
+            </variation>
+            <definition>
+                SSR / Mode S Range Gain and Range Bias, in two’s complement form.
+            </definition>
+            <remark>
+                Note:
+
+                    The following formula is used to correct range:
+
+                    .. math::
+
+                        \rho_\mathrm{corrected} = \frac{\rho_\mathrm{measured} - range\_bias}{1 + range\_gain}
+            </remark>
+        </item>
+        <item name="081" title="SSR Mode S Azimuth Bias">
+            <variation type="element" size="16">
+                <content type="quantity" signed="true" scaling="360" fractional_bits="16" unit="deg">
+                </content>
+            </variation>
+            <definition>
+                SSR / Mode S Azimuth Bias, in two’s complement form.
+            </definition>
+            <remark>
+                Note:
+
+                    The following formula is used to correct azimuth:
+
+                    .. math::
+
+                        \theta_\mathrm{corrected} = \theta_\mathrm{measured} - azimuth\_bias
+            </remark>
+        </item>
+        <item name="090" title="PSR Range Gain and Bias">
+            <variation type="group">
+                <items>
+                    <item name="PRG" title="PSR Range Gain">
+                        <variation type="element" size="16">
+                            <content type="quantity" signed="true" scaling="0.00001" fractional_bits="0" unit="">
+                            </content>
+                        </variation>
+                    </item>
+                    <item name="PRB" title="PSR Range Bias">
+                        <variation type="element" size="16">
+                            <content type="quantity" signed="true" scaling="1" fractional_bits="7" unit="NM">
+                            </content>
+                        </variation>
+                    </item>
+                </items>
+            </variation>
+            <definition>
+                PSR Range Gain and PSR Range Bias, in two’s complement form.
+            </definition>
+            <remark>
+                Note:
+
+                    The following formula is used to correct range:
+
+                    .. math:
+
+                        \rho_\mathrm{corrected} = \frac{\rho_\mathrm{measured} - range\_bias}{1 + range\_gain}
+            </remark>
+        </item>
+        <item name="091" title="PSR Azimuth Bias">
+            <variation type="element" size="16">
+                <content type="quantity" signed="true" scaling="360" fractional_bits="16" unit="deg">
+                </content>
+            </variation>
+            <definition>
+                PSR Azimuth Bias, in two’s complement form.
+            </definition>
+            <remark>
+                Note:
+
+                    The following formula is used to correct azimuth:
+
+                    .. math::
+
+                        \theta_\mathrm{corrected} = \theta_\mathrm{measured} - azimuth\_bias
+            </remark>
+        </item>
+        <item name="092" title="PSR Elevation Bias">
+            <variation type="element" size="16">
+                <content type="quantity" signed="true" scaling="360" fractional_bits="16" unit="deg">
+                </content>
+            </variation>
+            <definition>
+                PSR Elevation Bias, in two’s complement form.
+            </definition>
+        </item>
+        <item name="RE" title="Reserved Expansion Field">
+            <variation type="explicit" />
+            <definition>
+                Expansion
+            </definition>
+        </item>
+        <item name="SP" title="Special Purpose Field">
+            <variation type="explicit" />
+            <definition>
+                Special Purpose Field
+            </definition>
+        </item>
+    </items>
+    <uap>
+        <item>010</item>
+        <item>015</item>
+        <item>030</item>
+        <item>050</item>
+        <item>060</item>
+        <item>070</item>
+        <item>080</item>
+        <item>081</item>
+        <item>090</item>
+        <item>091</item>
+        <item>092</item>
+        <item>-</item>
+        <item>RE</item>
+        <item>SP</item>
+    </uap>
+</category>

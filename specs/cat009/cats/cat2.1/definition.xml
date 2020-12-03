@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<category cat="9" edition="2.1">
+    <title>Composite Weather Reports</title>
+    <date>2014-10-22</date>
+    <preamble>
+        Surveillance data exchange.
+    </preamble>
+    <items>
+        <item name="000" title="Message Type">
+            <variation type="element" size="8">
+                <content type="table">
+                    <value val="2">Cartesian vector</value>
+                    <value val="253">Intermediate-update-step message</value>
+                    <value val="254">Start-of-picture message</value>
+                    <value val="255">End-of-picture message</value>
+                </content>
+            </variation>
+            <definition>
+                This Data Item allows for a more convenient handling of the messages
+                at the receiver side by further defining the type of transaction.
+            </definition>
+        </item>
+        <item name="010" title="Data Source Identifier">
+            <variation type="group">
+                <items>
+                    <item name="SAC" title="System Area Code">
+                        <variation type="element" size="8">
+                            <raw />
+                        </variation>
+                    </item>
+                    <item name="SIC" title="System Identification Code">
+                        <variation type="element" size="8">
+                            <raw />
+                        </variation>
+                    </item>
+                </items>
+            </variation>
+            <definition>
+                Identification of the radar station from which the data are received.
+            </definition>
+            <remark>
+                Note:
+                    The defined SACs are on the EUROCONTROL ASTERIX website
+                    (www.eurocontrol.int/asterix)
+            </remark>
+        </item>
+        <item name="020" title="Vector Qualifier">
+            <variation type="extended" primary_size="8" extension_size="8">
+                <items>
+                    <item name="ORG" title="">
+                        <variation type="element" size="1">
+                            <content type="table">
+                                <value val="0">Local Coordinates</value>
+                                <value val="1">System Coordinates</value>
+                            </content>
+                        </variation>
+                    </item>
+                    <item name="I" title="Intensity Level">
+                        <variation type="element" size="3">
+                            <content type="integer" signed="false">
+                            </content>
+                        </variation>
+                    </item>
+                    <item name="S" title="Shading Orientation with Respect to North">
+                        <variation type="element" size="3">
+                            <content type="table">
+                                <value val="0">0°</value>
+                                <value val="1">22.5°</value>
+                                <value val="2">45°</value>
+                                <value val="3">67.5°</value>
+                                <value val="4">90°</value>
+                                <value val="5">112.5°</value>
+                                <value val="6">135°</value>
+                                <value val="7">157.5°</value>
+                            </content>
+                        </variation>
+                    </item>
+                </items>
+            </variation>
+            <definition>
+                This Data Item defines the orientation of the following sequence
+                of Cartesian vectors, their intensity level and the relevant
+                coordinate system.
+            </definition>
+            <remark>
+                For polar vectors &amp;quot;S-bits&amp;quot; are meaningless and shall be set to zero.
+            </remark>
+        </item>
+        <item name="030" title="Sequence of Cartesian Vectors">
+            <variation type="repetitive" repetition_size="8">
+                <variation type="group">
+                    <items>
+                        <item name="X" title="X-coordinate">
+                            <variation type="element" size="16">
+                                <content type="quantity" signed="true" scaling="1" fractional_bits="0" unit="NM">
+                                </content>
+                            </variation>
+                            <remark>
+                                Adjust with scaling factor &amp;apos;F&amp;apos;
+                            </remark>
+                        </item>
+                        <item name="Y" title="Y-coordinate">
+                            <variation type="element" size="16">
+                                <content type="quantity" signed="true" scaling="1" fractional_bits="0" unit="NM">
+                                </content>
+                            </variation>
+                            <remark>
+                                Adjust with scaling factor &amp;apos;F&amp;apos;
+                            </remark>
+                        </item>
+                        <item name="L" title="Vector Length">
+                            <variation type="element" size="16">
+                                <content type="integer" signed="false">
+                                </content>
+                            </variation>
+                            <remark>
+                                Adjust with scaling factor &amp;apos;F&amp;apos;
+                            </remark>
+                        </item>
+                    </items>
+                </variation>
+            </variation>
+            <definition>
+                Sequence of weather vectors in local or system Cartesian coordinates.
+            </definition>
+            <remark>
+                &amp;apos;F&amp;apos; shall be incorporated as a parameter in the SOP message.
+            </remark>
+        </item>
+        <item name="060" title="Synchronisation/Control Signal">
+            <variation type="extended" primary_size="8" extension_size="8">
+                <items>
+                    <item name="SN" title="Step Number">
+                        <variation type="element" size="6">
+                            <content type="integer" signed="false">
+                            </content>
+                        </variation>
+                    </item>
+                    <spare size="1" />
+                </items>
+            </variation>
+            <definition>
+                This Data Item provides the serial Step Number.
+            </definition>
+        </item>
+        <item name="070" title="Time of Day">
+            <variation type="element" size="24">
+                <content type="quantity" signed="false" scaling="1" fractional_bits="7" unit="s">
+                </content>
+            </variation>
+            <definition>
+                Absolute time stamping expressed as UTC time.
+            </definition>
+            <remark>
+                The time of day value is reset to zero each day at midnight.
+            </remark>
+        </item>
+        <item name="080" title="Processing Status">
+            <variation type="extended" primary_size="24" extension_size="8">
+                <items>
+                    <item name="F" title="Scaling Factor">
+                        <variation type="element" size="5">
+                            <content type="quantity" signed="true" scaling="1" fractional_bits="0" unit="">
+                            </content>
+                        </variation>
+                    </item>
+                    <item name="R" title="Current Reduction Stage in Use">
+                        <variation type="element" size="3">
+                            <raw />
+                        </variation>
+                    </item>
+                    <item name="Q" title="Processing Parameters">
+                        <variation type="element" size="15">
+                            <raw />
+                        </variation>
+                    </item>
+                </items>
+            </variation>
+            <definition>
+                Processing status of the Track Server.
+            </definition>
+        </item>
+        <item name="090" title="Radar Configuration and Status">
+            <variation type="repetitive" repetition_size="8">
+                <variation type="group">
+                    <items>
+                        <item name="SAC" title="SAC of Radar Concerned">
+                            <variation type="element" size="8">
+                                <raw />
+                            </variation>
+                        </item>
+                        <item name="SIC" title="SIC of Radar Concerned">
+                            <variation type="element" size="8">
+                                <raw />
+                            </variation>
+                        </item>
+                        <spare size="3" />
+                        <item name="CP" title="Circular Polarisation">
+                            <variation type="element" size="1">
+                                <raw />
+                            </variation>
+                        </item>
+                        <item name="WO" title="Weather Channel Overload">
+                            <variation type="element" size="1">
+                                <raw />
+                            </variation>
+                        </item>
+                        <item name="R" title="Reduction Step in Use By Radar  Concerned">
+                            <variation type="element" size="3">
+                                <raw />
+                            </variation>
+                        </item>
+                    </items>
+                </variation>
+            </variation>
+            <definition>
+                Current radar configuration and status of all operational radars.
+            </definition>
+        </item>
+        <item name="100" title="Vector Count">
+            <variation type="element" size="16">
+                <content type="integer" signed="false">
+                </content>
+            </variation>
+            <definition>
+                Total number of vectors defining a complete weather picture.
+            </definition>
+        </item>
+    </items>
+    <uap>
+        <item>010</item>
+        <item>000</item>
+        <item>020</item>
+        <item>030</item>
+        <item>060</item>
+        <item>070</item>
+        <item>080</item>
+        <item>090</item>
+        <item>100</item>
+    </uap>
+</category>
